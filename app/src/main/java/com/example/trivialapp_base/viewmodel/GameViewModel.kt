@@ -36,9 +36,10 @@ class GameViewModel : ViewModel() {
     private val TIEMPO_POR_PREGUNTA = 10000L // 10 segons
 
     fun setDificultad(dificultad: String) {
-        dificultadSeleccionada = dificultad // Sense .value!
+        dificultadSeleccionada = dificultad // sense .value!
     }
     fun iniciarJuego() {
+
     }
 
     private fun cargarSiguientePregunta() {

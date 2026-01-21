@@ -48,6 +48,7 @@ object ProveedorPreguntas {
             Pregunta("¿Qué campeón es conocido como 'El Coloso de Hierro'?", "Videojuegos", "Dificil", "Nautilus", "Blitzcrank", "Mordekaiser", "Urgot", "Blitzcrank"),
             Pregunta("¿Qué alquimista creó la Piedra Filosofal en Amestris?", "Anime", "Dificil", "Van Hohenheim", "Padre", "Edward Elric", "Scar", "Padre"),
             Pregunta("¿Qué tipo de titán poseía Ymir Fritz?", "Anime", "Dificil", "Titán Colosal", "Titán Fundador", "Titán Mandíbula", "Titán de Ataque", "Titán Fundador")
+
         )
     }
 }

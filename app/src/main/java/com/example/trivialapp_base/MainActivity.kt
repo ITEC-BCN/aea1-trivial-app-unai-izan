@@ -32,7 +32,7 @@ class MainActivity : ComponentActivity() {
                 navController = navigationController,
                 startDestination = Routes.ScrSplash.route
             ) {
-                /*composable(Routes.ScrMainMenu.route) { GameScreen(navigationController)}
+                /* composable(Routes.ScrMainMenu.route) { GameScreen(navigationController)}
                 composable(Routes.ScrGame.route) { MenuScreen(navigationController) }
                 composable(Routes.ScrResult.route) { ResultScreen(navigationController) }*/
                 composable(Routes.ScrSplash.route) { SplashScreen(navigationController) }

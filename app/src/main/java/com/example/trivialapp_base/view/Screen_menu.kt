@@ -107,8 +107,11 @@ fun MenuScreen(navController: NavController, viewModel: GameViewModel) {
                             expanded = false
                             selectedText = difficulty
                             viewModel.setDificultad(selectedText);
-                        })
-                }}}}
-
+                        }
+                    )
+                }
+            }
+        }
+    }
 }
 

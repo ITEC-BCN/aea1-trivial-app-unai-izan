@@ -6,8 +6,6 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
@@ -26,7 +24,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
-import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
 import com.example.trivialapp_base.R
 import com.example.trivialapp_base.Routes
@@ -97,7 +94,7 @@ fun MenuScreen(navController: NavController, viewModel: GameViewModel) {
                 expanded = expanded,
                 onDismissRequest = { expanded = false },
                 modifier = Modifier
-                    // Afegir colors i detalls al desplegable:
+                    // Afegir colors i detalls al desplegabl:
                     .border(1.dp, Color.Black, RoundedCornerShape(4.dp))
             ) {
                 difficulties.forEach { difficulty ->

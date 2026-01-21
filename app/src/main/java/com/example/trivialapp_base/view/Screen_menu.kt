@@ -61,7 +61,7 @@ fun MenuScreen(navController: NavController, viewModel: GameViewModel) {
                 navController.navigate(Routes.ScrGame.route)
                       },
                 modifier = Modifier.constrainAs(playBtn) {
-                top.linkTo(logoRef.bottom, margin = 20.dp) // Debajo del logo
+                top.linkTo(logoRef.bottom, margin = 20.dp) // Debajo del log
                 start.linkTo(parent.start)
                 end.linkTo(parent.end)
             }

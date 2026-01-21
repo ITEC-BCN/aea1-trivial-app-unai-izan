@@ -35,6 +35,7 @@ import com.example.trivialapp_base.viewmodel.GameViewModel
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         enableEdgeToEdge()
         setContent {
             TrivialAPP_BaseTheme {

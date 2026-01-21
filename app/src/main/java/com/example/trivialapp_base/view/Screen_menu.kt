@@ -26,6 +26,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
 import com.example.trivialapp_base.R
 import com.example.trivialapp_base.Routes
@@ -99,12 +100,13 @@ fun MenuScreen(navController: NavController, viewModel: GameViewModel) {
                     // Afegir colors i detalls al desplegable:
                     .border(1.dp, Color.Black, RoundedCornerShape(4.dp))
             ) {
-                difficulties.forEach { hobby ->
+                difficulties.forEach { difficulty ->
                     DropdownMenuItem(
-                        text = { Text(text = hobby) },
+                        text = { Text(text = difficulty) },
                         onClick = {
                             expanded = false
-                            selectedText = hobby
+                            selectedText = difficulty
+                            viewModel.setDificultad(selectedText);
                         })
                 }}}}
 

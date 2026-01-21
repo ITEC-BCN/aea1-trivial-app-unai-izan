@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
+import androidx.compose.material3.Card
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -30,11 +31,24 @@ fun GameScreen(navController: NavController, viewModel: GameViewModel) {
             .background(Color.Black)
     ) {
         val (buttonOne, buttonTwo, buttonThree, buttonFour, timeQuestion, edgyQuestion) = createRefs()
+
+        Card(modifier = Modifier
+            .size(300.dp)
+            .constrainAs(edgyQuestion) {
+                top.linkTo(parent.top, margin = 20.dp)
+                start.linkTo(parent.start)
+                end.linkTo(parent.end)
+            }) {
+            val pregunta = viewModel.preguntaActual
+            val indexPregunta = viewModel.indicePreguntaActual
+            Text("Pregunta $indexPregunta: $pregunta")
+        }
+
         Button(
             onClick = {
             },
             modifier = Modifier.constrainAs(buttonOne) {
-                top.linkTo(edgyQuestion.bottom, margin = 20.dp) // Debajo del log
+                top.linkTo(edgyQuestion.bottom, margin = 20.dp)
                 start.linkTo(parent.start)
                 end.linkTo(parent.end)
             }

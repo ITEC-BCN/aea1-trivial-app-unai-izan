@@ -8,6 +8,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import com.example.trivialapp_base.model.Pregunta
+import com.example.trivialapp_base.model.ProveedorPreguntas
 
 class GameViewModel : ViewModel() {
     private var preguntasPartida: List<Pregunta> = emptyList()
@@ -29,7 +30,7 @@ class GameViewModel : ViewModel() {
     var juegoTerminado by mutableStateOf(false)
         private set
 
-    var dificultadSeleccionada by mutableStateOf("Facil")
+    var dificultadSeleccionada by mutableStateOf("Easy")
         private set
 
     private var timer: CountDownTimer? = null
@@ -39,19 +40,46 @@ class GameViewModel : ViewModel() {
         dificultadSeleccionada = dificultad // sense .value!
     }
     fun iniciarJuego() {
-
+        indicePreguntaActual = 1
+        cargarSiguientePregunta()
+        iniciarTimer()
     }
 
     private fun cargarSiguientePregunta() {
+        var randomNumber = (0..9).random()
+        var listOfQuestions = ProveedorPreguntas.obtenerPreguntas()
+        when (dificultadSeleccionada)
+        {
+            "Easy" -> for (i in listOfQuestions)
+                    {
+
+                    }
+        }
     }
 
     fun responderPregunta(respuestaUsuario: String) {
     }
 
     private fun avanzarRonda() {
+        indicePreguntaActual++
+        cargarSiguientePregunta()
+        iniciarTimer()
     }
 
     private fun iniciarTimer() {
+        timer?.cancel()
+
+        timer = object : CountDownTimer(TIEMPO_POR_PREGUNTA, 50) {
+
+            override fun onTick(millisUntilFinished: Long) {
+                tiempoRestante = (millisUntilFinished.toFloat() / TIEMPO_POR_PREGUNTA) * 100
+            }
+
+            override fun onFinish() {
+                tiempoRestante = 0f
+                avanzarRonda()
+            }
+        }.start()
     }
 
     override fun onCleared() {

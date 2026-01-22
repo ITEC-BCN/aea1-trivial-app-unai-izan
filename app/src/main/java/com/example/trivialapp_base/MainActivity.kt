@@ -46,7 +46,7 @@ class MainActivity : ComponentActivity() {
                 // Definición de rutas y navegación
                 NavHost(
                     navController = navigationController,
-                    startDestination = Routes.ScrResult.route
+                    startDestination = Routes.ScrMainMenu.route
                 ) {
                     composable(Routes.ScrMainMenu.route) { MenuScreen(navigationController, gameViewModel) }
                     composable(Routes.ScrGame.route) { GameScreen(navigationController, gameViewModel)}

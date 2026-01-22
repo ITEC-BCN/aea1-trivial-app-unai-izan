@@ -31,7 +31,6 @@ import com.example.trivialapp_base.viewmodel.GameViewModel
 
 @Composable
 fun MenuScreen(navController: NavController, viewModel: GameViewModel) {
-    var optionSelected by remember { mutableStateOf("No selected") }
 
     ConstraintLayout(
         modifier = Modifier
@@ -68,7 +67,7 @@ fun MenuScreen(navController: NavController, viewModel: GameViewModel) {
 
         var selectedText: String by remember { mutableStateOf("Dificultat") }
         var expanded: Boolean by remember { mutableStateOf(false) }
-        val difficulties = listOf("Easy", "Medium", "Hard", "Edgy")
+        val difficulties = listOf("Facil", "Medio", "Dificil", "Edgy")
 
         Column(
             modifier = Modifier.constrainAs(difficultPack)
@@ -94,7 +93,6 @@ fun MenuScreen(navController: NavController, viewModel: GameViewModel) {
                 expanded = expanded,
                 onDismissRequest = { expanded = false },
                 modifier = Modifier
-                    // Afegir colors i detalls al desplegabl:
                     .border(1.dp, Color.Black, RoundedCornerShape(4.dp))
             ) {
                 difficulties.forEach { difficulty ->

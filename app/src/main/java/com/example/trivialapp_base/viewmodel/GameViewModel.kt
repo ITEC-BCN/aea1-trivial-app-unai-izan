@@ -1,5 +1,6 @@
 package com.example.trivialapp_base.viewmodel
 
+import android.R
 import android.os.CountDownTimer
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
@@ -11,8 +12,9 @@ import com.example.trivialapp_base.model.Pregunta
 import com.example.trivialapp_base.model.ProveedorPreguntas
 
 class GameViewModel : ViewModel() {
+    var isCorrect: Boolean = false
     private var preguntasPartida: List<Pregunta> = emptyList()
-    var indicePreguntaActual by mutableIntStateOf(0)
+    var indicePreguntaActual by mutableIntStateOf(1)
         private set
 
     var preguntaActual by mutableStateOf<Pregunta?>(null)
@@ -30,7 +32,7 @@ class GameViewModel : ViewModel() {
     var juegoTerminado by mutableStateOf(false)
         private set
 
-    var dificultadSeleccionada by mutableStateOf("Easy")
+    var dificultadSeleccionada by mutableStateOf("Facil")
         private set
 
     private var timer: CountDownTimer? = null
@@ -40,28 +42,43 @@ class GameViewModel : ViewModel() {
         dificultadSeleccionada = dificultad // sense .value!
     }
     fun iniciarJuego() {
+        juegoTerminado = false
         indicePreguntaActual = 1
+        puntuacion = 0
+        val listOfQuestions = ProveedorPreguntas.obtenerPreguntas()
+        preguntasPartida = listOfQuestions.filter{
+                pregunta -> pregunta.dificultad == dificultadSeleccionada
+        }
         cargarSiguientePregunta()
         iniciarTimer()
     }
 
     private fun cargarSiguientePregunta() {
-        var randomNumber = (0..9).random()
-        var listOfQuestions = ProveedorPreguntas.obtenerPreguntas()
-        when (dificultadSeleccionada)
-        {
-            "Easy" -> for (i in listOfQuestions)
-                    {
-
-                    }
-        }
+        preguntaActual = preguntasPartida.random()
+        respuestasMezcladas = listOf<String>(preguntaActual!!.respuesta1, preguntaActual!!.respuesta2, preguntaActual!!.respuesta3, preguntaActual!!.respuesta4)
+        respuestasMezcladas = respuestasMezcladas.shuffled()
     }
 
     fun responderPregunta(respuestaUsuario: String) {
+        if (respuestaUsuario == preguntaActual!!.respuestaCorrecta)
+        {
+            isCorrect = true
+            puntuacion += 10
+        }
+        else
+        {
+            isCorrect = false
+        }
+        avanzarRonda()
     }
 
     private fun avanzarRonda() {
         indicePreguntaActual++
+        if (indicePreguntaActual >= 10)
+        {
+            onCleared()
+            return
+        }
         cargarSiguientePregunta()
         iniciarTimer()
     }
@@ -83,5 +100,9 @@ class GameViewModel : ViewModel() {
     }
 
     override fun onCleared() {
+        timer?.cancel()
+        preguntasPartida = emptyList()
+        indicePreguntaActual = 0
+        juegoTerminado = true
     }
 }

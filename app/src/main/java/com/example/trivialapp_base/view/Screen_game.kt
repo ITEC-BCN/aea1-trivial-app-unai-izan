@@ -31,21 +31,18 @@ fun GameScreen(navController: NavController, viewModel: GameViewModel) {
             .background(Color.Black)
     ) {
         val (buttonOne, buttonTwo, buttonThree, buttonFour, timeQuestion, edgyQuestion) = createRefs()
-
         Card(modifier = Modifier
-            .size(300.dp)
+            .size(150.dp)
             .constrainAs(edgyQuestion) {
                 top.linkTo(parent.top, margin = 20.dp)
                 start.linkTo(parent.start)
                 end.linkTo(parent.end)
             }) {
-            val pregunta = viewModel.preguntaActual
-            val indexPregunta = viewModel.indicePreguntaActual
-            Text("Pregunta $indexPregunta: $pregunta")
-        }
+            Text("Pregunta ${viewModel.indicePreguntaActual}: ${viewModel.preguntaActual}") }
 
         Button(
             onClick = {
+                viewModel.responderPregunta(viewModel.respuestasMezcladas[0])
             },
             modifier = Modifier.constrainAs(buttonOne) {
                 top.linkTo(edgyQuestion.bottom, margin = 20.dp)
@@ -53,7 +50,48 @@ fun GameScreen(navController: NavController, viewModel: GameViewModel) {
                 end.linkTo(parent.end)
             }
         ) {
-            Text(text = "Play")
+            Text(viewModel.respuestasMezcladas[0])
         }
+
+        Button(
+            onClick = {
+                viewModel.responderPregunta(viewModel.respuestasMezcladas[1])
+            },
+            modifier = Modifier.constrainAs(buttonTwo) {
+                top.linkTo(edgyQuestion.bottom, margin = 100.dp)
+                start.linkTo(parent.start)
+                end.linkTo(parent.end)
+            }
+        ) {
+            Text(viewModel.respuestasMezcladas[1])
+        }
+
+        Button(
+            onClick = {
+                viewModel.responderPregunta(viewModel.respuestasMezcladas[2])
+            },
+            modifier = Modifier.constrainAs(buttonThree) {
+                top.linkTo(edgyQuestion.bottom, margin = 180.dp)
+                start.linkTo(parent.start)
+                end.linkTo(parent.end)
+            }
+        ) {
+            Text(viewModel.respuestasMezcladas[2])
+        }
+
+        Button(
+            onClick = {
+                viewModel.responderPregunta(viewModel.respuestasMezcladas[3])
+            },
+            modifier = Modifier.constrainAs(buttonFour) {
+                top.linkTo(edgyQuestion.bottom, margin = 260.dp)
+                start.linkTo(parent.start)
+                end.linkTo(parent.end)
+            }
+        ) {
+            Text(viewModel.respuestasMezcladas[3])
+        }
+
+        if (viewModel.juegoTerminado) navController.navigate(Routes.ScrResult.route)
     }
 }

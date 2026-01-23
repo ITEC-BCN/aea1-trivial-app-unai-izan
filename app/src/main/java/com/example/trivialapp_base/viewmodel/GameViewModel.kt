@@ -14,6 +14,8 @@ import com.example.trivialapp_base.model.ProveedorPreguntas
 class GameViewModel : ViewModel() {
     var isCorrect: Boolean = false
     private var preguntasPartida: List<Pregunta> = emptyList()
+
+    var preguntasDisponibles = preguntasPartida.toMutableList()
     var indicePreguntaActual by mutableIntStateOf(1)
         private set
 
@@ -49,14 +51,24 @@ class GameViewModel : ViewModel() {
         preguntasPartida = listOfQuestions.filter{
                 pregunta -> pregunta.dificultad == dificultadSeleccionada
         }
+        preguntasDisponibles = preguntasPartida.toMutableList()
         cargarSiguientePregunta()
         iniciarTimer()
     }
 
     private fun cargarSiguientePregunta() {
-        preguntaActual = preguntasPartida.random()
-        respuestasMezcladas = listOf<String>(preguntaActual!!.respuesta1, preguntaActual!!.respuesta2, preguntaActual!!.respuesta3, preguntaActual!!.respuesta4)
-        respuestasMezcladas = respuestasMezcladas.shuffled()
+        if (preguntasDisponibles.isEmpty()) {
+            onCleared()
+        }
+        val indexRandom = preguntasDisponibles.indices.random()
+        preguntaActual = preguntasDisponibles.removeAt(indexRandom)
+
+        respuestasMezcladas = listOf(
+            preguntaActual!!.respuesta1,
+            preguntaActual!!.respuesta2,
+            preguntaActual!!.respuesta3,
+            preguntaActual!!.respuesta4
+        ).shuffled()
     }
 
     fun responderPregunta(respuestaUsuario: String) {
@@ -74,7 +86,7 @@ class GameViewModel : ViewModel() {
 
     private fun avanzarRonda() {
         indicePreguntaActual++
-        if (indicePreguntaActual >= 10)
+        if (indicePreguntaActual > 10)
         {
             onCleared()
             return
@@ -89,7 +101,7 @@ class GameViewModel : ViewModel() {
         timer = object : CountDownTimer(TIEMPO_POR_PREGUNTA, 50) {
 
             override fun onTick(millisUntilFinished: Long) {
-                tiempoRestante = (millisUntilFinished.toFloat() / TIEMPO_POR_PREGUNTA) * 100
+                tiempoRestante = (millisUntilFinished.toFloat() / TIEMPO_POR_PREGUNTA)
             }
 
             override fun onFinish() {
@@ -102,6 +114,7 @@ class GameViewModel : ViewModel() {
     override fun onCleared() {
         timer?.cancel()
         preguntasPartida = emptyList()
+        preguntasDisponibles.clear()
         indicePreguntaActual = 0
         juegoTerminado = true
     }

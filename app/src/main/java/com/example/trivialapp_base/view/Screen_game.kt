@@ -3,15 +3,19 @@ package com.example.trivialapp_base.view
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
+import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -30,16 +34,34 @@ fun GameScreen(navController: NavController, viewModel: GameViewModel) {
             .fillMaxSize()
             .background(Color.Black)
     ) {
-        val (buttonOne, buttonTwo, buttonThree, buttonFour, timeQuestion, edgyQuestion) = createRefs()
+        val (buttonOne, buttonTwo, buttonThree, buttonFour, timeQuestion, edgyQuestion, timer) = createRefs()
+        //PREGUNTA
         Card(modifier = Modifier
-            .size(150.dp)
+            .fillMaxWidth(1f)
+            .padding(20.dp, 100.dp)
             .constrainAs(edgyQuestion) {
                 top.linkTo(parent.top, margin = 20.dp)
                 start.linkTo(parent.start)
                 end.linkTo(parent.end)
             }) {
-            Text("Pregunta ${viewModel.indicePreguntaActual}: ${viewModel.preguntaActual}") }
+            Text("Pregunta ${viewModel.indicePreguntaActual}: ${viewModel.preguntaActual!!.pregunta}") }
 
+        //TIMER
+        LinearProgressIndicator(
+            modifier = Modifier
+                .constrainAs(timer) {
+                top.linkTo(edgyQuestion.bottom, margin = 0.dp)
+                start.linkTo(parent.start)
+                end.linkTo(parent.end)
+
+            }
+            ,
+            progress = {viewModel.tiempoRestante},
+            color = Color.White,
+            trackColor = Color.LightGray
+        )
+
+        //RESPOSTES
         Button(
             onClick = {
                 viewModel.responderPregunta(viewModel.respuestasMezcladas[0])

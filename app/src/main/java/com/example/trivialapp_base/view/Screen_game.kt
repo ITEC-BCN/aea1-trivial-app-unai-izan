@@ -26,7 +26,7 @@ import androidx.navigation.NavController
 import com.example.trivialapp_base.R
 import com.example.trivialapp_base.Routes
 import com.example.trivialapp_base.viewmodel.GameViewModel
-
+import androidx.compose.material3.ButtonDefaults?
 @Composable
 fun GameScreen(navController: NavController, viewModel: GameViewModel) {
     var optionSelected by remember { mutableStateOf("No selected") }
@@ -38,7 +38,7 @@ fun GameScreen(navController: NavController, viewModel: GameViewModel) {
     ) {
         val (buttonOne, buttonTwo,buttonTree, buttonFour, edgyQuestion, timeQuestion)= createRefs()
 
-        Box(modifier = Modifier.size(100.dp).background(Color.Red).constrainAs(buttonTree){
+        Box(modifier = Modifier.size(100.dp).background(Color.White).constrainAs(buttonTree){
             bottom.linkTo(parent.bottom)
             start.linkTo(parent.start)
         })
@@ -46,18 +46,18 @@ fun GameScreen(navController: NavController, viewModel: GameViewModel) {
             top.linkTo(buttonTree.bottom)
             start.linkTo(parent.start)
         })
-        Box(modifier = Modifier.size(100.dp).background(Color.Red).constrainAs(buttonTwo){
+        Box(modifier = Modifier.size(100.dp).background(Color.Blue).constrainAs(buttonTwo){
             bottom.linkTo(buttonOne.bottom)
         })
-        Box(modifier = Modifier.size(100.dp).background(Color.Red).constrainAs(buttonFour){
+        Box(modifier = Modifier.size(100.dp).background(Color.Green).constrainAs(buttonFour){
             bottom.linkTo(buttonTree.bottom)
         })
 
         Button(
-
-            onClick = {
-
-            },
+            onClick = {},
+            colors = ButtonDefaults.buttonColors(
+                containerColor = Color.Transparent
+            ),
             modifier = Modifier.constrainAs(buttonOne, ) {
                 top.linkTo(buttonOne.bottom, margin = 10.dp) // Debajo del log
                 start.linkTo(parent.start)
@@ -66,7 +66,6 @@ fun GameScreen(navController: NavController, viewModel: GameViewModel) {
         ) {
             Text(text = "A")
         }
-
 
 
     }

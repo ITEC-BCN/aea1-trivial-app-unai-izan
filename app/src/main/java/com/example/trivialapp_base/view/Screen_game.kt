@@ -4,7 +4,9 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.LinearProgressIndicator
@@ -26,7 +28,9 @@ import androidx.navigation.NavController
 import com.example.trivialapp_base.R
 import com.example.trivialapp_base.Routes
 import com.example.trivialapp_base.viewmodel.GameViewModel
-import androidx.compose.material3.ButtonDefaults?
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.ui.unit.sp
+
 @Composable
 fun GameScreen(navController: NavController, viewModel: GameViewModel) {
     var optionSelected by remember { mutableStateOf("No selected") }
@@ -38,35 +42,98 @@ fun GameScreen(navController: NavController, viewModel: GameViewModel) {
     ) {
         val (buttonOne, buttonTwo,buttonTree, buttonFour, edgyQuestion, timeQuestion)= createRefs()
 
-        Box(modifier = Modifier.size(100.dp).background(Color.White).constrainAs(buttonTree){
-            bottom.linkTo(parent.bottom)
-            start.linkTo(parent.start)
-        })
-        Box(modifier = Modifier.size(100.dp).background(Color.Red).constrainAs(buttonOne){
-            top.linkTo(buttonTree.bottom)
-            start.linkTo(parent.start)
-        })
-        Box(modifier = Modifier.size(100.dp).background(Color.Blue).constrainAs(buttonTwo){
-            bottom.linkTo(buttonOne.bottom)
-        })
-        Box(modifier = Modifier.size(100.dp).background(Color.Green).constrainAs(buttonFour){
-            bottom.linkTo(buttonTree.bottom)
-        })
 
-        Button(
-            onClick = {},
-            colors = ButtonDefaults.buttonColors(
-                containerColor = Color.Transparent
-            ),
-            modifier = Modifier.constrainAs(buttonOne, ) {
-                top.linkTo(buttonOne.bottom, margin = 10.dp) // Debajo del log
-                start.linkTo(parent.start)
-                end.linkTo(parent.end)
-            }
-        ) {
-            Text(text = "A")
+        Box(modifier = Modifier
+            .height(150.dp)
+            .width(200.dp)
+            .background(Color.Red)
+            .constrainAs(buttonOne){
+                bottom.linkTo(buttonTree.top, margin = 5.dp)
+                start.linkTo(parent.start, margin = 5.dp)
         }
+        ){
+            Button(
+                onClick = {},
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Color.Transparent
+                ),
+                modifier = Modifier.fillMaxSize()
+            ){
+                Text(text = "A",
+                    color = Color.Red,
+                    fontSize = 24.sp
+                )
+            }
 
+        }
+        Box(modifier = Modifier
+            .height(150.dp)
+            .width(200.dp)
+            .background(Color.Blue)
+            .constrainAs(buttonTwo){
+                bottom.linkTo(buttonFour.top, margin = 5.dp)
+                end.linkTo(parent.end, margin = 5.dp)
+        }
+        ){
+            Button(
+                onClick = {},
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Color.Transparent
+                ),
+                modifier = Modifier.fillMaxSize()
+            ){
+                Text(text = "A",
+                    color = Color.Red,
+                    fontSize = 24.sp
+                )
+            }
 
+        }
+        Box(modifier = Modifier
+            .height(150.dp)
+            .width(200.dp)
+            .background(Color.DarkGray)
+            .constrainAs(buttonTree){
+                bottom.linkTo(parent.bottom, margin = 5.dp)
+                start.linkTo(parent.start, margin = 5.dp)
+        }
+        ){
+            Button(
+                onClick = {},
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Color.Transparent
+                ),
+                modifier = Modifier.fillMaxSize()
+            ){
+                Text(text = "A",
+                    color = Color.Red,
+                    fontSize = 24.sp
+                )
+            }
+
+        }
+        Box(modifier = Modifier
+            .height(150.dp)
+            .width(200.dp)
+            .background(Color.Red)
+            .constrainAs(buttonFour){
+                bottom.linkTo(parent.bottom,margin = 5.dp)
+                end.linkTo(parent.end, margin = 5.dp )
+        }
+        ){
+            Button(
+                onClick = {},
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Color.Transparent
+                ),
+                modifier = Modifier.fillMaxSize()
+            ){
+                Text(text = "A",
+                    color = Color.Blue,
+                    fontSize = 24.sp
+                )
+            }
+
+        }
     }
 }

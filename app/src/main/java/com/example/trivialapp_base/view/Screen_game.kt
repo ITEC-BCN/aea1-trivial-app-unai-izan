@@ -3,6 +3,7 @@ package com.example.trivialapp_base.view
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
@@ -29,6 +30,8 @@ import com.example.trivialapp_base.R
 import com.example.trivialapp_base.Routes
 import com.example.trivialapp_base.viewmodel.GameViewModel
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.sp
 
 @Composable
@@ -46,7 +49,7 @@ fun GameScreen(navController: NavController, viewModel: GameViewModel) {
         Box(modifier = Modifier
             .height(150.dp)
             .width(200.dp)
-            .background(Color.Red)
+            .background(colorResource(id = R.color.Ferrari_Red))
             .constrainAs(buttonOne){
                 bottom.linkTo(buttonTree.top, margin = 5.dp)
                 start.linkTo(parent.start, margin = 5.dp)
@@ -60,7 +63,7 @@ fun GameScreen(navController: NavController, viewModel: GameViewModel) {
                 modifier = Modifier.fillMaxSize()
             ){
                 Text(text = "A",
-                    color = Color.Red,
+                    color = Color.Black,
                     fontSize = 24.sp
                 )
             }
@@ -69,7 +72,7 @@ fun GameScreen(navController: NavController, viewModel: GameViewModel) {
         Box(modifier = Modifier
             .height(150.dp)
             .width(200.dp)
-            .background(Color.Blue)
+            .background(colorResource(id = R.color.card_ruf))
             .constrainAs(buttonTwo){
                 bottom.linkTo(buttonFour.top, margin = 5.dp)
                 end.linkTo(parent.end, margin = 5.dp)
@@ -83,7 +86,7 @@ fun GameScreen(navController: NavController, viewModel: GameViewModel) {
                 modifier = Modifier.fillMaxSize()
             ){
                 Text(text = "A",
-                    color = Color.Red,
+                    color = Color.Black,
                     fontSize = 24.sp
                 )
             }
@@ -92,7 +95,7 @@ fun GameScreen(navController: NavController, viewModel: GameViewModel) {
         Box(modifier = Modifier
             .height(150.dp)
             .width(200.dp)
-            .background(Color.DarkGray)
+            .background(colorResource(id = R.color.Orange_Soda))
             .constrainAs(buttonTree){
                 bottom.linkTo(parent.bottom, margin = 5.dp)
                 start.linkTo(parent.start, margin = 5.dp)
@@ -106,7 +109,7 @@ fun GameScreen(navController: NavController, viewModel: GameViewModel) {
                 modifier = Modifier.fillMaxSize()
             ){
                 Text(text = "A",
-                    color = Color.Red,
+                    color = Color.Black,
                     fontSize = 24.sp
                 )
             }
@@ -115,7 +118,7 @@ fun GameScreen(navController: NavController, viewModel: GameViewModel) {
         Box(modifier = Modifier
             .height(150.dp)
             .width(200.dp)
-            .background(Color.Red)
+            .background(colorResource(id = R.color.car_color))
             .constrainAs(buttonFour){
                 bottom.linkTo(parent.bottom,margin = 5.dp)
                 end.linkTo(parent.end, margin = 5.dp )
@@ -126,14 +129,14 @@ fun GameScreen(navController: NavController, viewModel: GameViewModel) {
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color.Transparent
                 ),
-                modifier = Modifier.fillMaxSize()
+                contentPadding = PaddingValues(0.dp),
+                modifier = Modifier.fillMaxSize(),
             ){
                 Text(text = "A",
-                    color = Color.Blue,
-                    fontSize = 24.sp
+                    color = Color.Black,
+                    fontSize = 15.sp
                 )
             }
-
         }
     }
 }

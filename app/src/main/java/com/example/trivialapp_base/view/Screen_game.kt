@@ -135,6 +135,7 @@ fun GameScreen(navController: NavController, viewModel: GameViewModel) {
                 Text(text = "A",
                     color = Color.Black,
                     fontSize = 15.sp
+
                 )
             }
         }

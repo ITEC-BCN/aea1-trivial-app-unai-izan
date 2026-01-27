@@ -138,6 +138,7 @@ fun GameScreen(navController: NavController, viewModel: GameViewModel) {
 
                 )
             }
+
         }
     }
 }

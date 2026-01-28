@@ -2,12 +2,14 @@ package com.example.trivialapp_base.view
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -20,7 +22,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavController
 import com.example.trivialapp_base.R
@@ -34,17 +40,43 @@ fun GameScreen(navController: NavController, viewModel: GameViewModel) {
             .fillMaxSize()
             .background(Color.Black)
     ) {
-        val (buttonOne, buttonTwo, buttonThree, buttonFour, timeQuestion, edgyQuestion, timer) = createRefs()
+        val (buttonOne, buttonTwo, buttonThree, buttonFour, edgyQuestion, timer, round) = createRefs()
         //PREGUNTA
-        Card(modifier = Modifier
+        Box(modifier = Modifier
             .fillMaxWidth(1f)
-            .padding(20.dp, 100.dp)
+            .padding(50.dp, 100.dp)
+            .background(color = Color.Black)
             .constrainAs(edgyQuestion) {
                 top.linkTo(parent.top, margin = 20.dp)
                 start.linkTo(parent.start)
                 end.linkTo(parent.end)
+            }){
+            Text(viewModel.preguntaActual!!.pregunta,
+                textDecoration = null,
+                fontFamily = FontFamily(Font(R.font.fugazone)),
+                color = Color.White,
+                fontSize = 30.sp,
+                textAlign = TextAlign.Center
+            )
+        }
+
+        //RONDA
+        Box(modifier = Modifier
+            .fillMaxWidth(1f)
+            .padding(176.dp, 100.dp)
+            .background(color = Color.Black)
+            .constrainAs(round) {
+                top.linkTo(edgyQuestion.bottom, margin = -150.dp)
+                start.linkTo(parent.start)
+                end.linkTo(parent.end)
             }) {
-            Text("Pregunta ${viewModel.indicePreguntaActual}: ${viewModel.preguntaActual!!.pregunta}") }
+            Text("${viewModel.indicePreguntaActual}/10",
+                textDecoration = null,
+                fontFamily = FontFamily(Font(R.font.fugazone)),
+                color = Color.White,
+                fontSize = 20.sp,
+                textAlign = TextAlign.Center
+            ) }
 
         //TIMER
         LinearProgressIndicator(
@@ -72,7 +104,8 @@ fun GameScreen(navController: NavController, viewModel: GameViewModel) {
                 end.linkTo(parent.end)
             }
         ) {
-            Text(viewModel.respuestasMezcladas[0])
+            Text(viewModel.respuestasMezcladas[0],
+                fontFamily = FontFamily(Font(R.font.fugazone)))
         }
 
         Button(
@@ -85,7 +118,8 @@ fun GameScreen(navController: NavController, viewModel: GameViewModel) {
                 end.linkTo(parent.end)
             }
         ) {
-            Text(viewModel.respuestasMezcladas[1])
+            Text(viewModel.respuestasMezcladas[1],
+                fontFamily = FontFamily(Font(R.font.fugazone)))
         }
 
         Button(
@@ -98,7 +132,8 @@ fun GameScreen(navController: NavController, viewModel: GameViewModel) {
                 end.linkTo(parent.end)
             }
         ) {
-            Text(viewModel.respuestasMezcladas[2])
+            Text(viewModel.respuestasMezcladas[2],
+                fontFamily = FontFamily(Font(R.font.fugazone)),)
         }
 
         Button(
@@ -111,7 +146,8 @@ fun GameScreen(navController: NavController, viewModel: GameViewModel) {
                 end.linkTo(parent.end)
             }
         ) {
-            Text(viewModel.respuestasMezcladas[3])
+            Text(viewModel.respuestasMezcladas[3],
+                fontFamily = FontFamily(Font(R.font.fugazone)))
         }
 
         if (viewModel.juegoTerminado) navController.navigate(Routes.ScrResult.route)

@@ -1,5 +1,6 @@
 package com.example.trivialapp_base.view
 import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.snapping.SnapPosition
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -25,6 +26,7 @@ import com.example.trivialapp_base.R
 import com.example.trivialapp_base.Routes
 import com.example.trivialapp_base.viewmodel.GameViewModel
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.res.colorResource
@@ -145,10 +147,15 @@ fun GameScreen(navController: NavController, viewModel: GameViewModel) {
                     containerColor = Color.Transparent
                 ),
                 modifier = Modifier.fillMaxSize()
+
             ){
-                Text(text = viewModel.respuestasMezcladas[0],
+                Text(
+                    text = viewModel.respuestasMezcladas[0],
                     color = Color.Black,
-                    fontSize = 24.sp
+                    fontSize = 24.sp,
+                    textAlign = TextAlign.Center
+
+
                 )
             }
 
@@ -175,7 +182,8 @@ fun GameScreen(navController: NavController, viewModel: GameViewModel) {
             ){
                 Text(text = viewModel.respuestasMezcladas[1],
                     color = Color.Black,
-                    fontSize = 24.sp
+                    fontSize = 24.sp,
+                    textAlign = TextAlign.Center
                 )
             }
 
@@ -202,7 +210,8 @@ fun GameScreen(navController: NavController, viewModel: GameViewModel) {
             ){
                 Text(text = viewModel.respuestasMezcladas[2],
                     color = Color.Black,
-                    fontSize = 24.sp
+                    fontSize = 24.sp,
+                    textAlign = TextAlign.Center
                 )
             }
 
@@ -231,7 +240,8 @@ fun GameScreen(navController: NavController, viewModel: GameViewModel) {
             ){
                 Text(text = viewModel.respuestasMezcladas[3],
                     color = Color.Black,
-                    fontSize = 24.sp
+                    fontSize = 24.sp,
+                    textAlign = TextAlign.Center
 
                 )
             }

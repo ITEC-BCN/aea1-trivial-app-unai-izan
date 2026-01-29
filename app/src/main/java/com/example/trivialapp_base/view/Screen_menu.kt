@@ -73,7 +73,12 @@ fun MenuScreen(navController: NavController, viewModel: GameViewModel) {
                 end.linkTo(parent.end)
             }
         ) {
-            Text(text = "Play")
+            Text(text = "Play",
+                textDecoration = null,
+                fontFamily = FontFamily(Font(R.font.fugazone)),
+                color = Color.White,
+                fontSize = 15.sp,
+                textAlign = TextAlign.Center)
         }
 
         var selectedText: String by remember { mutableStateOf("Dificultad") }

@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.OutlinedTextField
@@ -26,6 +27,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Outline
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
@@ -66,6 +68,8 @@ fun MenuScreen(navController: NavController, viewModel: GameViewModel) {
                 navController.navigate(Routes.ScrGame.route)
                 viewModel.iniciarJuego()
                       },
+                colors = ButtonDefaults.buttonColors(
+                containerColor = colorResource(id = R.color.Ferrari_Red)),
                 modifier = Modifier.constrainAs(playBtn) {
                 top.linkTo(logoRef.bottom, margin = 20.dp)
                 start.linkTo(parent.start)

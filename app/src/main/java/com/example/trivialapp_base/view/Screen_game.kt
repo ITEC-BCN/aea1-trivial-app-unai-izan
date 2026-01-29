@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.Text
@@ -24,6 +25,7 @@ import com.example.trivialapp_base.R
 import com.example.trivialapp_base.Routes
 import com.example.trivialapp_base.viewmodel.GameViewModel
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.colorResource
 
 @Composable
@@ -91,6 +93,7 @@ fun GameScreen(navController: NavController, viewModel: GameViewModel) {
         Box(modifier = Modifier
             .height(150.dp)
             .width(200.dp)
+            .clip(RoundedCornerShape(15.dp))
             .background(colorResource(id = R.color.Ferrari_Red))
             .constrainAs(buttonOne){
                 bottom.linkTo(buttonThree.top, margin = 5.dp)
@@ -117,6 +120,7 @@ fun GameScreen(navController: NavController, viewModel: GameViewModel) {
         Box(modifier = Modifier
             .height(150.dp)
             .width(200.dp)
+            .clip(RoundedCornerShape(15.dp))
             .background(colorResource(id = R.color.card_ruf))
             .constrainAs(buttonTwo){
                 bottom.linkTo(buttonFour.top, margin = 5.dp)
@@ -143,6 +147,7 @@ fun GameScreen(navController: NavController, viewModel: GameViewModel) {
         Box(modifier = Modifier
             .height(150.dp)
             .width(200.dp)
+            .clip(RoundedCornerShape(15.dp))
             .background(colorResource(id = R.color.Orange_Soda))
             .constrainAs(buttonThree){
                 bottom.linkTo(parent.bottom, margin = 5.dp)
@@ -170,6 +175,7 @@ fun GameScreen(navController: NavController, viewModel: GameViewModel) {
         Box(modifier = Modifier
             .height(150.dp)
             .width(200.dp)
+            .clip(RoundedCornerShape(15.dp))
             .background(colorResource(id = R.color.car_color))
             .constrainAs(buttonFour){
                 bottom.linkTo(parent.bottom,margin = 5.dp)

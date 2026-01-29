@@ -1,22 +1,22 @@
 package com.example.trivialapp_base.view
 
-import android.R.attr.end
-import android.R.attr.start
-import android.R.attr.top
+
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
+
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
@@ -30,8 +30,6 @@ import androidx.navigation.NavController
 import com.example.trivialapp_base.R
 import com.example.trivialapp_base.Routes
 import com.example.trivialapp_base.viewmodel.GameViewModel
-import kotlinx.coroutines.NonDisposableHandle
-import kotlinx.coroutines.NonDisposableHandle.parent
 
 @Composable
 fun ResultScreen(navController: NavController, viewModel: GameViewModel) {
@@ -71,14 +69,15 @@ fun ResultScreen(navController: NavController, viewModel: GameViewModel) {
         //Share button
         Box(
             modifier = Modifier.constrainAs(shareBtn) {
-                top.linkTo(scoreRef.bottom, margin = 120.dp) // Debajo del score
+                top.linkTo(scoreRef.bottom, margin = 120.dp)
                 start.linkTo(parent.start)
                 end.linkTo(parent.end)
             }
-                .height(150.dp)
+                .height(60.dp)
                 .width(200.dp)
+                .clip(RoundedCornerShape(12.dp))
                 .background(colorResource(id = R.color.Ferrari_Red))
-        ) { }
+        )
         Button(
             onClick = {
             },
@@ -86,7 +85,7 @@ fun ResultScreen(navController: NavController, viewModel: GameViewModel) {
                 containerColor = Color.Transparent
             ),
             modifier = Modifier.constrainAs(shareBtn) {
-                top.linkTo(scoreRef.bottom, margin = 120.dp) // Debajo del score
+                top.linkTo(scoreRef.bottom, margin = 120.dp)
                 start.linkTo(parent.start)
                 end.linkTo(parent.end)
             }
@@ -99,10 +98,11 @@ fun ResultScreen(navController: NavController, viewModel: GameViewModel) {
         Box(
             modifier = Modifier.constrainAs(menuBtn) {
                 top.linkTo(shareBtn.bottom, margin = 20.dp)
-                start.linkTo(parent.start, margin = 140.dp)
+                start.linkTo(parent.start, margin = 125.dp)
             }
-                .height(110.dp)
-                .width(150.dp)
+                .height(50.dp)
+                .width(160.dp)
+                .clip(RoundedCornerShape(12.dp))
                 .background(colorResource(id = R.color.Ferrari_Red))
         ) {
             Button(

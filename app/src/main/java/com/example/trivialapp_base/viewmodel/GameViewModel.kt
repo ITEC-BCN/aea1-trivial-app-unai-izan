@@ -1,5 +1,6 @@
 package com.example.trivialapp_base.viewmodel
 
+import android.R
 import android.os.CountDownTimer
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
@@ -8,10 +9,14 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import com.example.trivialapp_base.model.Pregunta
+import com.example.trivialapp_base.model.ProveedorPreguntas
 
 class GameViewModel : ViewModel() {
+    var isCorrect: Boolean = false
     private var preguntasPartida: List<Pregunta> = emptyList()
-    var indicePreguntaActual by mutableIntStateOf(0)
+
+    var preguntasDisponibles = preguntasPartida.toMutableList()
+    var indicePreguntaActual by mutableIntStateOf(1)
         private set
 
     var preguntaActual by mutableStateOf<Pregunta?>(null)
@@ -39,21 +44,79 @@ class GameViewModel : ViewModel() {
         dificultadSeleccionada = dificultad // sense .value!
     }
     fun iniciarJuego() {
-
+        juegoTerminado = false
+        indicePreguntaActual = 1
+        puntuacion = 0
+        val listOfQuestions = ProveedorPreguntas.obtenerPreguntas()
+        preguntasPartida = listOfQuestions.filter{
+                pregunta -> pregunta.dificultad == dificultadSeleccionada
+        }
+        preguntasDisponibles = preguntasPartida.toMutableList()
+        cargarSiguientePregunta()
+        iniciarTimer()
     }
 
     private fun cargarSiguientePregunta() {
+        if (preguntasDisponibles.isEmpty()) {
+            onCleared()
+            return
+        }
+        val indexRandom = preguntasDisponibles.indices.random()
+        preguntaActual = preguntasDisponibles.removeAt(indexRandom)
+
+        respuestasMezcladas = listOf(
+            preguntaActual!!.respuesta1,
+            preguntaActual!!.respuesta2,
+            preguntaActual!!.respuesta3,
+            preguntaActual!!.respuesta4
+        ).shuffled()
     }
 
     fun responderPregunta(respuestaUsuario: String) {
+        if (respuestaUsuario == preguntaActual!!.respuestaCorrecta)
+        {
+            isCorrect = true
+            puntuacion += 10
+        }
+        else
+        {
+            isCorrect = false
+        }
+        avanzarRonda()
     }
 
     private fun avanzarRonda() {
+        indicePreguntaActual++
+        if (indicePreguntaActual > 10)
+        {
+            onCleared()
+            return
+        }
+        cargarSiguientePregunta()
+        iniciarTimer()
     }
 
     private fun iniciarTimer() {
+        timer?.cancel()
+
+        timer = object : CountDownTimer(TIEMPO_POR_PREGUNTA, 50) {
+
+            override fun onTick(millisUntilFinished: Long) {
+                tiempoRestante = (millisUntilFinished.toFloat() / TIEMPO_POR_PREGUNTA)
+            }
+
+            override fun onFinish() {
+                tiempoRestante = 0f
+                avanzarRonda()
+            }
+        }.start()
     }
 
     override fun onCleared() {
+        timer?.cancel()
+        preguntasPartida = emptyList()
+        preguntasDisponibles.clear()
+        indicePreguntaActual = 0
+        juegoTerminado = true
     }
 }

@@ -6,6 +6,11 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
@@ -13,17 +18,25 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.LinearProgressIndicator
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.focusModifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavController
 import com.example.trivialapp_base.R
@@ -36,16 +49,66 @@ import androidx.compose.ui.unit.sp
 
 @Composable
 fun GameScreen(navController: NavController, viewModel: GameViewModel) {
-    var optionSelected by remember { mutableStateOf("No selected") }
-
     ConstraintLayout(
         modifier = Modifier
             .fillMaxSize()
             .background(Color.Black)
     ) {
-        val (buttonOne, buttonTwo,buttonTree, buttonFour, edgyQuestion, timeQuestion)= createRefs()
 
+        val (buttonOne, buttonTwo, buttonThree, buttonFour, edgyQuestion, timer, round) = createRefs()
+        //PREGUNTA
+        Box(modifier = Modifier
+            .fillMaxWidth(1f)
+            .padding(50.dp, 100.dp)
+            .background(color = Color.Black)
+            .constrainAs(edgyQuestion) {
+                top.linkTo(parent.top, margin = 20.dp)
+                start.linkTo(parent.start)
+                end.linkTo(parent.end)
+            }){
+            Text(viewModel.preguntaActual!!.pregunta,
+                textDecoration = null,
+                fontFamily = FontFamily(Font(R.font.fugazone)),
+                color = Color.White,
+                fontSize = 30.sp,
+                textAlign = TextAlign.Center
+            )
+        }
 
+        //RONDA
+        Box(modifier = Modifier
+            .fillMaxWidth(1f)
+            .padding(176.dp, 100.dp)
+            .background(color = Color.Black)
+            .constrainAs(round) {
+                top.linkTo(parent.top, margin = 150.dp)
+                start.linkTo(parent.start)
+                end.linkTo(parent.end)
+            }) {
+            Text("${viewModel.indicePreguntaActual}/10",
+                textDecoration = null,
+                fontFamily = FontFamily(Font(R.font.fugazone)),
+                color = Color.White,
+                fontSize = 20.sp,
+                textAlign = TextAlign.Center
+            ) }
+
+        //TIMER
+        LinearProgressIndicator(
+            modifier = Modifier
+                .constrainAs(timer) {
+                top.linkTo(round.bottom, margin = 1.dp)
+                start.linkTo(parent.start)
+                end.linkTo(parent.end)
+
+            }
+            ,
+            progress = {viewModel.tiempoRestante},
+            color = Color.White,
+            trackColor = Color.LightGray
+        )
+
+        //RESPOSTES
         Box(modifier = Modifier
             .height(150.dp)
             .width(200.dp)
@@ -56,19 +119,22 @@ fun GameScreen(navController: NavController, viewModel: GameViewModel) {
         }
         ){
             Button(
-                onClick = {},
+                onClick = {
+                  viewModel.responderPregunta(viewModel.respuestasMezcladas[0])
+                },
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color.Transparent
                 ),
                 modifier = Modifier.fillMaxSize()
             ){
-                Text(text = "A",
+                Text(text = viewModel.respuestasMezcladas[0],
                     color = Color.Black,
                     fontSize = 24.sp
                 )
             }
 
         }
+        
         Box(modifier = Modifier
             .height(150.dp)
             .width(200.dp)
@@ -79,42 +145,49 @@ fun GameScreen(navController: NavController, viewModel: GameViewModel) {
         }
         ){
             Button(
-                onClick = {},
+                onClick = {
+                  viewModel.responderPregunta(viewModel.respuestasMezcladas[1])
+                },
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color.Transparent
                 ),
                 modifier = Modifier.fillMaxSize()
             ){
-                Text(text = "A",
+                Text(text = viewModel.respuestasMezcladas[1],
                     color = Color.Black,
                     fontSize = 24.sp
                 )
             }
 
         }
+
         Box(modifier = Modifier
             .height(150.dp)
             .width(200.dp)
             .background(colorResource(id = R.color.Orange_Soda))
-            .constrainAs(buttonTree){
+            .constrainAs(buttonThree){
                 bottom.linkTo(parent.bottom, margin = 5.dp)
                 start.linkTo(parent.start, margin = 5.dp)
         }
         ){
             Button(
-                onClick = {},
+                onClick = {
+                  viewModel.responderPregunta(viewModel.respuestasMezcladas[2])
+                },
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color.Transparent
                 ),
                 modifier = Modifier.fillMaxSize()
             ){
-                Text(text = "A",
+                Text(text = viewModel.respuestasMezcladas[2],
                     color = Color.Black,
                     fontSize = 24.sp
                 )
             }
 
         }
+
+        
         Box(modifier = Modifier
             .height(150.dp)
             .width(200.dp)
@@ -125,14 +198,16 @@ fun GameScreen(navController: NavController, viewModel: GameViewModel) {
         }
         ){
             Button(
-                onClick = {},
+                onClick = {
+                  viewModel.responderPregunta(viewModel.respuestasMezcladas[3])
+                },
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color.Transparent
                 ),
                 contentPadding = PaddingValues(0.dp),
                 modifier = Modifier.fillMaxSize(),
             ){
-                Text(text = "A",
+                Text(text = viewModel.respuestasMezcladas[3],
                     color = Color.Black,
                     fontSize = 15.sp
 
@@ -140,5 +215,7 @@ fun GameScreen(navController: NavController, viewModel: GameViewModel) {
             }
 
         }
+
+        if (viewModel.juegoTerminado) navController.navigate(Routes.ScrResult.route)
     }
 }

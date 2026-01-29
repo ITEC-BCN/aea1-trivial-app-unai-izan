@@ -12,7 +12,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavController
 import com.example.trivialapp_base.R
@@ -47,7 +50,11 @@ fun ResultScreen(navController: NavController, viewModel: GameViewModel) {
             end.linkTo(parent.end)
         }) {
             val finalPuntuacion = viewModel.puntuacion
-            Text("$finalPuntuacion")
+            Text("$finalPuntuacion",
+                Modifier.background(color = Color.Black),
+                fontFamily = FontFamily(Font(R.font.fugazone)),
+                fontSize = 60.sp,
+                color = Color.White)
         }
 
         //Share button
@@ -60,7 +67,8 @@ fun ResultScreen(navController: NavController, viewModel: GameViewModel) {
                 end.linkTo(parent.end)
             }
         ) {
-            Text(text = "Share")
+            Text(text = "Share",
+                fontFamily = FontFamily(Font(R.font.fugazone)))
         }
 
         Button(
@@ -74,7 +82,8 @@ fun ResultScreen(navController: NavController, viewModel: GameViewModel) {
                 end.linkTo(parent.end)
             }
         ) {
-            Text(text = "Return to menu")
+            Text(text = "Return to menu",
+                fontFamily = FontFamily(Font(R.font.fugazone)))
         }
     }
 }

@@ -38,6 +38,7 @@ android {
     }
     buildFeatures {
         compose = true
+        viewBinding = true
     }
 }
 
@@ -62,5 +63,7 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
     implementation("androidx.navigation:navigation-compose:2.7.5")
     implementation(libs.androidx.constraintlayout.compose)
+    implementation("com.github.sakshampruthi:custom-loading-screen:1.16")
+    //implementation("com.airbnb.android:lottie:$lottieVersion")
 
 }

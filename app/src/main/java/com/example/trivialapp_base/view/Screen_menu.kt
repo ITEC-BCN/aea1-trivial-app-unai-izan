@@ -6,7 +6,10 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.DropdownMenu
@@ -18,11 +21,18 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Outline
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavController
 import com.example.trivialapp_base.R
@@ -31,7 +41,6 @@ import com.example.trivialapp_base.viewmodel.GameViewModel
 
 @Composable
 fun MenuScreen(navController: NavController, viewModel: GameViewModel) {
-    var optionSelected by remember { mutableStateOf("No selected") }
 
     ConstraintLayout(
         modifier = Modifier
@@ -54,11 +63,11 @@ fun MenuScreen(navController: NavController, viewModel: GameViewModel) {
 
         Button(
             onClick = {
-                viewModel.iniciarJuego()
                 navController.navigate(Routes.ScrGame.route)
+                viewModel.iniciarJuego()
                       },
                 modifier = Modifier.constrainAs(playBtn) {
-                top.linkTo(logoRef.bottom, margin = 20.dp) // Debajo del log
+                top.linkTo(logoRef.bottom, margin = 20.dp)
                 start.linkTo(parent.start)
                 end.linkTo(parent.end)
             }
@@ -66,9 +75,9 @@ fun MenuScreen(navController: NavController, viewModel: GameViewModel) {
             Text(text = "Play")
         }
 
-        var selectedText: String by remember { mutableStateOf("Dificultat") }
+        var selectedText: String by remember { mutableStateOf("Dificultad") }
         var expanded: Boolean by remember { mutableStateOf(false) }
-        val difficulties = listOf("Easy", "Medium", "Hard", "Edgy")
+        val difficulties = listOf("Facil", "Medio", "Dificil", "Edgy")
 
         Column(
             modifier = Modifier.constrainAs(difficultPack)
@@ -87,24 +96,42 @@ fun MenuScreen(navController: NavController, viewModel: GameViewModel) {
                 readOnly = true,
                 modifier = Modifier
                     .clickable { expanded = true }
-                    .background(Color.White)
+                    .border(2.dp, Color.White, RoundedCornerShape(4.dp))
+                    .background(Color.Black)
+                    .width(120.dp)
+                ,
+                textStyle = TextStyle(
+                    textDecoration = null,
+                    fontFamily = FontFamily(Font(R.font.fugazone)),
+                    color = Color.White,
+                    fontSize = 15.sp,
+                    textAlign = TextAlign.Center
+                )
             )
 
             DropdownMenu(
                 expanded = expanded,
                 onDismissRequest = { expanded = false },
                 modifier = Modifier
-                    // Afegir colors i detalls al desplegabl:
-                    .border(1.dp, Color.Black, RoundedCornerShape(4.dp))
+                    .border(2.dp, Color.White, RoundedCornerShape(4.dp))
+                    .background(color = Color.Black)
+                    .width(120.dp)
             ) {
                 difficulties.forEach { difficulty ->
                     DropdownMenuItem(
-                        text = { Text(text = difficulty) },
+                        text = { Text(text = difficulty,
+                                textDecoration = null,
+                                fontFamily = FontFamily(Font(R.font.fugazone)),
+                                color = Color.White,
+                                fontSize = 15.sp,
+                                textAlign = TextAlign.Center) },
                         onClick = {
                             expanded = false
                             selectedText = difficulty
                             viewModel.setDificultad(selectedText);
-                        })
+                        },
+                        modifier = Modifier
+                            .padding(25.dp, 0.dp))
                 }}}}
 
 }

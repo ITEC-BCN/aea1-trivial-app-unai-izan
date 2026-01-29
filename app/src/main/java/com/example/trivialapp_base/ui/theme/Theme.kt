@@ -47,7 +47,7 @@ fun TrivialAPP_BaseTheme(
         }
 
         darkTheme -> DarkColorScheme
-        else -> LightColorScheme
+        else -> DarkColorScheme
     }
 
     MaterialTheme(

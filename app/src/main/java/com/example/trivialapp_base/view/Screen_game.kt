@@ -132,7 +132,7 @@ fun GameScreen(navController: NavController, viewModel: GameViewModel) {
                 contentPadding = PaddingValues(0.dp),
                 modifier = Modifier.fillMaxSize(),
             ){
-                Text(text = "A",
+                Text(text = "ae",
                     color = Color.Black,
                     fontSize = 15.sp
 

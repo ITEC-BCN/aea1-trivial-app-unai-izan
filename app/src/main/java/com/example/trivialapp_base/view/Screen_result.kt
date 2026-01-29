@@ -99,10 +99,10 @@ fun ResultScreen(navController: NavController, viewModel: GameViewModel) {
         Box(
             modifier = Modifier.constrainAs(menuBtn) {
                 top.linkTo(shareBtn.bottom, margin = 20.dp)
-                start.linkTo(parent.start, margin = 150.dp)
+                start.linkTo(parent.start, margin = 140.dp)
             }
-                .height(150.dp)
-                .width(200.dp)
+                .height(110.dp)
+                .width(150.dp)
                 .background(colorResource(id = R.color.Ferrari_Red))
         ) {
             Button(

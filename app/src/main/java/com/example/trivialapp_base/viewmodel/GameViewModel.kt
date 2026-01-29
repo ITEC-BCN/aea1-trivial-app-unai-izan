@@ -59,6 +59,7 @@ class GameViewModel : ViewModel() {
     private fun cargarSiguientePregunta() {
         if (preguntasDisponibles.isEmpty()) {
             onCleared()
+            return
         }
         val indexRandom = preguntasDisponibles.indices.random()
         preguntaActual = preguntasDisponibles.removeAt(indexRandom)

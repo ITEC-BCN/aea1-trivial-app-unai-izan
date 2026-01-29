@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.DropdownMenu
@@ -26,6 +27,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Outline
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
@@ -73,7 +75,7 @@ fun MenuScreen(navController: NavController, viewModel: GameViewModel) {
             Text(text = "Play")
         }
 
-        var selectedText: String by remember { mutableStateOf("Dificultat") }
+        var selectedText: String by remember { mutableStateOf("Dificultad") }
         var expanded: Boolean by remember { mutableStateOf(false) }
         val difficulties = listOf("Facil", "Medio", "Dificil", "Edgy")
 
@@ -96,6 +98,15 @@ fun MenuScreen(navController: NavController, viewModel: GameViewModel) {
                     .clickable { expanded = true }
                     .border(2.dp, Color.White, RoundedCornerShape(4.dp))
                     .background(Color.Black)
+                    .width(120.dp)
+                ,
+                textStyle = TextStyle(
+                    textDecoration = null,
+                    fontFamily = FontFamily(Font(R.font.fugazone)),
+                    color = Color.White,
+                    fontSize = 15.sp,
+                    textAlign = TextAlign.Center
+                )
             )
 
             DropdownMenu(
@@ -104,6 +115,7 @@ fun MenuScreen(navController: NavController, viewModel: GameViewModel) {
                 modifier = Modifier
                     .border(2.dp, Color.White, RoundedCornerShape(4.dp))
                     .background(color = Color.Black)
+                    .width(120.dp)
             ) {
                 difficulties.forEach { difficulty ->
                     DropdownMenuItem(
@@ -117,7 +129,9 @@ fun MenuScreen(navController: NavController, viewModel: GameViewModel) {
                             expanded = false
                             selectedText = difficulty
                             viewModel.setDificultad(selectedText);
-                        })
+                        },
+                        modifier = Modifier
+                            .padding(25.dp, 0.dp))
                 }}}}
 
 }

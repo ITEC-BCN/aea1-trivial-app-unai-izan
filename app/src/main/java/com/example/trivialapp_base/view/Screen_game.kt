@@ -3,10 +3,13 @@ package com.example.trivialapp_base.view
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -66,7 +69,7 @@ fun GameScreen(navController: NavController, viewModel: GameViewModel) {
             .padding(176.dp, 100.dp)
             .background(color = Color.Black)
             .constrainAs(round) {
-                top.linkTo(edgyQuestion.bottom, margin = -150.dp)
+                top.linkTo(parent.top, margin = 150.dp)
                 start.linkTo(parent.start)
                 end.linkTo(parent.end)
             }) {
@@ -82,7 +85,7 @@ fun GameScreen(navController: NavController, viewModel: GameViewModel) {
         LinearProgressIndicator(
             modifier = Modifier
                 .constrainAs(timer) {
-                top.linkTo(edgyQuestion.bottom, margin = 0.dp)
+                top.linkTo(round.bottom, margin = 1.dp)
                 start.linkTo(parent.start)
                 end.linkTo(parent.end)
 
@@ -99,7 +102,7 @@ fun GameScreen(navController: NavController, viewModel: GameViewModel) {
                 viewModel.responderPregunta(viewModel.respuestasMezcladas[0])
             },
             modifier = Modifier.constrainAs(buttonOne) {
-                top.linkTo(edgyQuestion.bottom, margin = 20.dp)
+                top.linkTo(timer.bottom, margin = 20.dp)
                 start.linkTo(parent.start)
                 end.linkTo(parent.end)
             }
@@ -113,7 +116,7 @@ fun GameScreen(navController: NavController, viewModel: GameViewModel) {
                 viewModel.responderPregunta(viewModel.respuestasMezcladas[1])
             },
             modifier = Modifier.constrainAs(buttonTwo) {
-                top.linkTo(edgyQuestion.bottom, margin = 100.dp)
+                top.linkTo(timer.bottom, margin = 100.dp)
                 start.linkTo(parent.start)
                 end.linkTo(parent.end)
             }
@@ -127,7 +130,7 @@ fun GameScreen(navController: NavController, viewModel: GameViewModel) {
                 viewModel.responderPregunta(viewModel.respuestasMezcladas[2])
             },
             modifier = Modifier.constrainAs(buttonThree) {
-                top.linkTo(edgyQuestion.bottom, margin = 180.dp)
+                top.linkTo(timer.bottom, margin = 180.dp)
                 start.linkTo(parent.start)
                 end.linkTo(parent.end)
             }
@@ -141,7 +144,7 @@ fun GameScreen(navController: NavController, viewModel: GameViewModel) {
                 viewModel.responderPregunta(viewModel.respuestasMezcladas[3])
             },
             modifier = Modifier.constrainAs(buttonFour) {
-                top.linkTo(edgyQuestion.bottom, margin = 260.dp)
+                top.linkTo(timer.bottom, margin = 260.dp)
                 start.linkTo(parent.start)
                 end.linkTo(parent.end)
             }

@@ -26,6 +26,7 @@ import com.example.trivialapp_base.Routes
 import com.example.trivialapp_base.viewmodel.GameViewModel
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.res.colorResource
 
 @Composable
@@ -36,7 +37,7 @@ fun GameScreen(navController: NavController, viewModel: GameViewModel) {
             .background(Color.Black)
     ) {
 
-        val (buttonOne, buttonTwo, buttonThree, buttonFour, edgyQuestion, timer, round) = createRefs()
+        val (buttonOne, buttonTwo, buttonThree, buttonFour, edgyQuestion, timer, round, correction) = createRefs()
         //PREGUNTA
         Box(modifier = Modifier
             .fillMaxWidth(1f)
@@ -89,6 +90,42 @@ fun GameScreen(navController: NavController, viewModel: GameViewModel) {
             trackColor = Color.LightGray
         )
 
+        //CORRECCIÓ
+
+        if (viewModel.showCorrection)
+        {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth(1f)
+                    .padding(133.dp, 100.dp)
+                    .background(color = Color.Black)
+                    .constrainAs(correction) {
+                        top.linkTo(timer.bottom, margin = 10.dp)
+                        start.linkTo(parent.start)
+                        end.linkTo(parent.end)
+                    }){
+                if(viewModel.isCorrect)
+                {
+                    Text("Correct",
+                        textDecoration = null,
+                        fontFamily = FontFamily(Font(R.font.fugazone)),
+                        color = Color.Green,
+                        fontSize = 30.sp,
+                        textAlign = TextAlign.Center
+                    )
+                }
+                else
+                {
+                    Text("Incorrect",
+                        textDecoration = null,
+                        fontFamily = FontFamily(Font(R.font.fugazone)),
+                        color = Color.Red,
+                        fontSize = 30.sp,
+                        textAlign = TextAlign.Center
+                    )
+                }
+            }
+        }
         //RESPOSTES
         Box(modifier = Modifier
             .height(150.dp)

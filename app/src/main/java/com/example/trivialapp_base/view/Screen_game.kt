@@ -1,37 +1,18 @@
 package com.example.trivialapp_base.view
-
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
-import androidx.compose.material3.Card
-import androidx.compose.material3.LinearProgressIndicator
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.focusModifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
@@ -43,9 +24,7 @@ import com.example.trivialapp_base.R
 import com.example.trivialapp_base.Routes
 import com.example.trivialapp_base.viewmodel.GameViewModel
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.unit.sp
 
 @Composable
 fun GameScreen(navController: NavController, viewModel: GameViewModel) {
@@ -114,7 +93,7 @@ fun GameScreen(navController: NavController, viewModel: GameViewModel) {
             .width(200.dp)
             .background(colorResource(id = R.color.Ferrari_Red))
             .constrainAs(buttonOne){
-                bottom.linkTo(buttonTree.top, margin = 5.dp)
+                bottom.linkTo(buttonThree.top, margin = 5.dp)
                 start.linkTo(parent.start, margin = 5.dp)
         }
         ){
@@ -209,7 +188,7 @@ fun GameScreen(navController: NavController, viewModel: GameViewModel) {
             ){
                 Text(text = viewModel.respuestasMezcladas[3],
                     color = Color.Black,
-                    fontSize = 15.sp
+                    fontSize = 24.sp
 
                 )
             }

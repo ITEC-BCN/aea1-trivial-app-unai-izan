@@ -12,8 +12,11 @@ import com.example.trivialapp_base.model.Pregunta
 import com.example.trivialapp_base.model.ProveedorPreguntas
 
 class GameViewModel : ViewModel() {
-    var isCorrect: Boolean = false
+    var isCorrect by mutableStateOf(false)
+    var showCorrection by mutableStateOf(false)
     private var preguntasPartida: List<Pregunta> = emptyList()
+
+    private var counter:Int = 0
 
     var preguntasDisponibles = preguntasPartida.toMutableList()
     var indicePreguntaActual by mutableIntStateOf(1)
@@ -31,6 +34,9 @@ class GameViewModel : ViewModel() {
     var tiempoRestante by mutableFloatStateOf(100f)
         private set
 
+    var lastTime by mutableFloatStateOf(1f)
+        private set
+
     var juegoTerminado by mutableStateOf(false)
         private set
 
@@ -39,11 +45,13 @@ class GameViewModel : ViewModel() {
 
     private var timer: CountDownTimer? = null
     private val TIEMPO_POR_PREGUNTA = 10000L // 10 segons
+    private val TIEMPO_CORRECCION = 1000L // 1 segon
 
     fun setDificultad(dificultad: String) {
         dificultadSeleccionada = dificultad // sense .value!
     }
     fun iniciarJuego() {
+        counter = 0
         juegoTerminado = false
         indicePreguntaActual = 1
         puntuacion = 0
@@ -73,19 +81,26 @@ class GameViewModel : ViewModel() {
     }
 
     fun responderPregunta(respuestaUsuario: String) {
-        if (respuestaUsuario == preguntaActual!!.respuestaCorrecta)
+        while (counter < 1)
         {
-            isCorrect = true
-            puntuacion += 10
+            if (respuestaUsuario == preguntaActual!!.respuestaCorrecta)
+            {
+                isCorrect = true
+                puntuacion += 10
+            }
+            else
+            {
+                isCorrect = false
+            }
+            showCorrection = true
+            iniciarTimerCorreccion()
+            counter++
         }
-        else
-        {
-            isCorrect = false
-        }
-        avanzarRonda()
+
     }
 
     private fun avanzarRonda() {
+        counter = 0
         indicePreguntaActual++
         if (indicePreguntaActual > 10)
         {
@@ -93,6 +108,7 @@ class GameViewModel : ViewModel() {
             return
         }
         cargarSiguientePregunta()
+        showCorrection = false
         iniciarTimer()
     }
 
@@ -103,16 +119,35 @@ class GameViewModel : ViewModel() {
 
             override fun onTick(millisUntilFinished: Long) {
                 tiempoRestante = (millisUntilFinished.toFloat() / TIEMPO_POR_PREGUNTA)
+                lastTime = tiempoRestante
             }
 
             override fun onFinish() {
                 tiempoRestante = 0f
+                isCorrect = false
+                iniciarTimerCorreccion()
+            }
+        }.start()
+    }
+
+    private fun iniciarTimerCorreccion() {
+        timer?.cancel()
+
+        timer = object : CountDownTimer(TIEMPO_CORRECCION, 50) {
+
+            override fun onTick(millisUntilFinished: Long) {
+                tiempoRestante = lastTime
+            }
+
+            override fun onFinish() {
                 avanzarRonda()
             }
         }.start()
     }
 
     override fun onCleared() {
+        counter = 0
+        showCorrection = false
         timer?.cancel()
         preguntasPartida = emptyList()
         preguntasDisponibles.clear()
